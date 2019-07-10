@@ -1,0 +1,1 @@
+{"version":3,"file":"viewport-ruler-adapter.ngfactory.js","sourceRoot":"","sources":["../../../../../../.ng_build/theme/components/cdk/adapter/viewport-ruler-adapter.ngfactory.ts"],"names":[],"mappings":"","sourcesContent":["import * as i0 from '@angular/core';\ni0.ComponentFactory;\n"]}

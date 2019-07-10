@@ -1,0 +1,13 @@
+<!--
+  ~ Copyright (c) Akveo 2019. All Rights Reserved.
+  ~ Licensed under the Personal / Commercial License.
+  ~ See LICENSE_PERSONAL / LICENSE_COMMERCIAL in the project root for license information on type of purchased license.
+  -->
+
+<div class="legends">
+  <div *ngFor="let legend of legendItems" class="legend">
+    <div class="legend-item-color"
+         [style.background]="legend.iconColor"></div>
+    <div class="legend-title">{{ legend.title }}</div>
+  </div>
+</div>

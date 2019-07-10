@@ -1,0 +1,20 @@
+export var TREE_EVENTS = {
+    toggleExpanded: 'toggleExpanded',
+    activate: 'activate',
+    deactivate: 'deactivate',
+    nodeActivate: 'nodeActivate',
+    nodeDeactivate: 'nodeDeactivate',
+    select: 'select',
+    deselect: 'deselect',
+    focus: 'focus',
+    blur: 'blur',
+    initialized: 'initialized',
+    updateData: 'updateData',
+    moveNode: 'moveNode',
+    copyNode: 'copyNode',
+    event: 'event',
+    loadNodeChildren: 'loadNodeChildren',
+    changeFilter: 'changeFilter',
+    stateChange: 'stateChange'
+};
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL2xpYi9jb25zdGFudHMvZXZlbnRzLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLE1BQU0sQ0FBQyxJQUFNLFdBQVcsR0FBRztJQUN6QixjQUFjLEVBQUUsZ0JBQWdCO0lBQ2hDLFFBQVEsRUFBRSxVQUFVO0lBQ3BCLFVBQVUsRUFBRSxZQUFZO0lBQ3hCLFlBQVksRUFBRSxjQUFjO0lBQzVCLGNBQWMsRUFBRSxnQkFBZ0I7SUFDaEMsTUFBTSxFQUFFLFFBQVE7SUFDaEIsUUFBUSxFQUFFLFVBQVU7SUFDcEIsS0FBSyxFQUFFLE9BQU87SUFDZCxJQUFJLEVBQUUsTUFBTTtJQUNaLFdBQVcsRUFBRSxhQUFhO0lBQzFCLFVBQVUsRUFBRSxZQUFZO0lBQ3hCLFFBQVEsRUFBRSxVQUFVO0lBQ3BCLFFBQVEsRUFBRSxVQUFVO0lBQ3BCLEtBQUssRUFBRSxPQUFPO0lBQ2QsZ0JBQWdCLEVBQUUsa0JBQWtCO0lBQ3BDLFlBQVksRUFBRSxjQUFjO0lBQzVCLFdBQVcsRUFBRSxhQUFhO0NBQzNCLENBQUMiLCJmaWxlIjoiZXZlbnRzLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBjb25zdCBUUkVFX0VWRU5UUyA9IHtcbiAgdG9nZ2xlRXhwYW5kZWQ6ICd0b2dnbGVFeHBhbmRlZCcsXG4gIGFjdGl2YXRlOiAnYWN0aXZhdGUnLFxuICBkZWFjdGl2YXRlOiAnZGVhY3RpdmF0ZScsXG4gIG5vZGVBY3RpdmF0ZTogJ25vZGVBY3RpdmF0ZScsXG4gIG5vZGVEZWFjdGl2YXRlOiAnbm9kZURlYWN0aXZhdGUnLFxuICBzZWxlY3Q6ICdzZWxlY3QnLFxuICBkZXNlbGVjdDogJ2Rlc2VsZWN0JyxcbiAgZm9jdXM6ICdmb2N1cycsXG4gIGJsdXI6ICdibHVyJyxcbiAgaW5pdGlhbGl6ZWQ6ICdpbml0aWFsaXplZCcsXG4gIHVwZGF0ZURhdGE6ICd1cGRhdGVEYXRhJyxcbiAgbW92ZU5vZGU6ICdtb3ZlTm9kZScsXG4gIGNvcHlOb2RlOiAnY29weU5vZGUnLFxuICBldmVudDogJ2V2ZW50JyxcbiAgbG9hZE5vZGVDaGlsZHJlbjogJ2xvYWROb2RlQ2hpbGRyZW4nLFxuICBjaGFuZ2VGaWx0ZXI6ICdjaGFuZ2VGaWx0ZXInLFxuICBzdGF0ZUNoYW5nZTogJ3N0YXRlQ2hhbmdlJ1xufTtcbiJdfQ==

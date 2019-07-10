@@ -1,0 +1,82 @@
+/**
+ * @license
+ * Copyright Akveo. All Rights Reserved.
+ * Licensed under the MIT License. See License.txt in the project root for license information.
+ */
+
+@mixin nb-actions-theme() {
+  nb-actions {
+
+    font-size: nb-theme(actions-font-size);
+    font-family: nb-theme(actions-font-family);
+    line-height: nb-theme(actions-line-height);
+
+    nb-action {
+      height: nb-theme(actions-size-small);
+      padding: 0 nb-theme(actions-padding);
+
+      &:first-child {
+        @include nb-ltr(border-left, none!important);
+        @include nb-rtl(border-right, none!important);
+      }
+
+      a.icon-container {
+        &:hover, &:focus {
+          text-decoration: none;
+        }
+      }
+
+      i.control-icon {
+        color: nb-theme(actions-fg);
+        font-size: nb-theme(actions-size-small);
+      }
+
+      @include nb-ltr(border-left, 1px solid nb-theme(actions-separator));
+      @include nb-rtl(border-right, 1px solid nb-theme(actions-separator));
+
+      background: transparent;
+    }
+
+    &.inverse {
+      nb-action {
+        i.control-icon {
+          color: nb-theme(actions-bg);
+        }
+
+        @include nb-ltr(border-left, 1px solid nb-theme(actions-separator));
+        @include nb-rtl(border-right, 1px solid nb-theme(actions-separator));
+      }
+    }
+
+    &.small {
+      nb-action {
+        height: nb-theme(actions-size-small);
+        i.control-icon {
+          font-size: nb-theme(actions-size-small);
+        }
+      }
+    }
+    &.medium {
+      nb-action {
+        height: nb-theme(actions-size-medium);
+        i.control-icon {
+          font-size: nb-theme(actions-size-medium);
+        }
+      }
+    }
+    &.large {
+      nb-action {
+        height: nb-theme(actions-size-large);
+        i.control-icon {
+          font-size: nb-theme(actions-size-large);
+        }
+      }
+    }
+
+    &.full-width nb-action {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+  }
+}

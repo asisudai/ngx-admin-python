@@ -1,0 +1,63 @@
+/**
+ * @license
+ * Copyright Akveo. All Rights Reserved.
+ * Licensed under the MIT License. See License.txt in the project root for license information.
+ */
+
+@mixin nb-route-tabset-theme() {
+
+  nb-route-tabset {
+    @include nb-scrollbars(
+        nb-theme(scrollbar-fg),
+        nb-theme(scrollbar-bg),
+        nb-theme(scrollbar-width));
+
+    .route-tabset {
+      font-family: nb-theme(route-tabs-font-family);
+      font-size: nb-theme(route-tabs-font-size);
+
+      padding: 0 nb-theme(route-tabs-padding);
+      border-bottom: 1px solid nb-theme(route-tabs-separator);
+
+      .route-tab {
+        background: nb-theme(route-tabs-header-bg);
+        min-width: nb-theme(route-tabs-header-min-width);
+
+        a {
+          padding: nb-theme(route-tabs-padding);
+          color: nb-theme(route-tabs-fg);
+
+          &:hover {
+            color: nb-theme(route-tabs-fg-heading);
+          }
+
+          &::before {
+            background: nb-theme(route-tabs-selected);
+
+            @include nb-for-theme(cosmic) {
+              @include btn-hero-success-gradient();
+              box-shadow: 0 0 16px -2px btn-hero-success-middle-color();
+            }
+          }
+        }
+
+        &.active {
+          background: nb-theme(route-tabs-active-bg);
+
+          a {
+            font-weight: nb-theme(route-tabs-active-font-weight);
+            color: nb-theme(route-tabs-fg-heading);
+          }
+        }
+
+        &.responsive {
+          @media screen and (max-width: nb-theme(route-tabs-icon-only-max-width)) {
+            a span {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}

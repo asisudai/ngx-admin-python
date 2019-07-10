@@ -1,0 +1,13 @@
+<!--
+  ~ Copyright (c) Akveo 2019. All Rights Reserved.
+  ~ Licensed under the Personal / Commercial License.
+  ~ See LICENSE_PERSONAL / LICENSE_COMMERCIAL in the project root for license information on type of purchased license.
+  -->
+
+<nb-card>
+  <nb-card-header>Google Maps with search</nb-card-header>
+  <nb-card-body>
+    <ngx-search (positionChanged)="updateLocation($event)"></ngx-search>
+    <ngx-map [searchedLocation]="searchedLocation"></ngx-map>
+  </nb-card-body>
+</nb-card>

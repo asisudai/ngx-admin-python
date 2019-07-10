@@ -1,0 +1,65 @@
+<span *ngIf="menuItem.group">
+  <i class="menu-icon {{ menuItem.icon }}" *ngIf="menuItem.icon"></i>
+  {{ menuItem.title }}
+</span>
+<a *ngIf="menuItem.link && !menuItem.url && !menuItem.children && !menuItem.group"
+   [routerLink]="menuItem.link"
+   [queryParams]="menuItem.queryParams"
+   [fragment]="menuItem.fragment"
+   [skipLocationChange]="menuItem.skipLocationChange"
+   [attr.target]="menuItem.target"
+   [attr.title]="menuItem.title"
+   [class.active]="menuItem.selected"
+   (mouseenter)="onHoverItem(menuItem)"
+   (click)="onItemClick(menuItem);">
+  <i class="menu-icon {{ menuItem.icon }}" *ngIf="menuItem.icon"></i>
+  <span class="menu-title">{{ menuItem.title }}</span>
+</a>
+<a *ngIf="menuItem.url && !menuItem.children && !menuItem.link && !menuItem.group"
+   [attr.href]="menuItem.url"
+   [attr.target]="menuItem.target"
+   [attr.title]="menuItem.title"
+   [class.active]="menuItem.selected"
+   (mouseenter)="onHoverItem(menuItem)"
+   (click)="onSelectItem(menuItem)">
+  <i class="menu-icon {{ menuItem.icon }}" *ngIf="menuItem.icon"></i>
+  <span class="menu-title">{{ menuItem.title }}</span>
+</a>
+<a *ngIf="!menuItem.children && !menuItem.link && !menuItem.url && !menuItem.group"
+   [attr.target]="menuItem.target"
+   [attr.title]="menuItem.title"
+   [class.active]="menuItem.selected"
+   (mouseenter)="onHoverItem(menuItem)"
+   (click)="$event.preventDefault(); onItemClick(menuItem);">
+  <i class="menu-icon {{ menuItem.icon }}" *ngIf="menuItem.icon"></i>
+  <span class="menu-title">{{ menuItem.title }}</span>
+</a>
+<a *ngIf="menuItem.children"
+   (click)="$event.preventDefault(); onToggleSubMenu(menuItem);"
+   [attr.target]="menuItem.target"
+   [attr.title]="menuItem.title"
+   [class.active]="menuItem.selected"
+   (mouseenter)="onHoverItem(menuItem)"
+   href="#">
+  <i class="menu-icon {{ menuItem.icon }}" *ngIf="menuItem.icon"></i>
+  <span class="menu-title">{{ menuItem.title }}</span>
+  <i class="ion chevron" [class.ion-chevron-left]="!menuItem.expanded"
+     [class.ion-chevron-down]="menuItem.expanded"></i>
+</a>
+<ul *ngIf="menuItem.children"
+    [class.collapsed]="!(menuItem.children && menuItem.expanded)"
+    [class.expanded]="menuItem.expanded"
+    [@toggle]="toggleState"
+    class="menu-items">
+  <ng-container *ngFor="let item of menuItem.children">
+    <li nbMenuItem *ngIf="!item.hidden"
+        [menuItem]="item"
+        [class.menu-group]="item.group"
+        (hoverItem)="onHoverItem($event)"
+        (toggleSubMenu)="onToggleSubMenu($event)"
+        (selectItem)="onSelectItem($event)"
+        (itemClick)="onItemClick($event)"
+        class="menu-item">
+    </li>
+  </ng-container>
+</ul>

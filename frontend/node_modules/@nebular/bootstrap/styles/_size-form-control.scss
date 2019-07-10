@@ -1,0 +1,31 @@
+/**
+ * @license
+ * Copyright Akveo. All Rights Reserved.
+ * Licensed under the MIT License. See License.txt in the project root for license information.
+ */
+
+@mixin form-control-size() {
+  .form-control {
+    @include form-control-md();
+  }
+
+  .form-control.input-sm {
+    @include form-control-sm();
+  }
+
+  .form-control.input-lg {
+    @include form-control-lg();
+  }
+}
+
+@mixin form-control-sm() {
+  font-size: nb-theme(form-control-font-size-sm);
+}
+
+@mixin form-control-md() {
+  font-size: nb-theme(form-control-font-size);
+}
+
+@mixin form-control-lg() {
+  font-size: nb-theme(form-control-font-size-lg);
+}

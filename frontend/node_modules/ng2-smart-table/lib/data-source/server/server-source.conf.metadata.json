@@ -1,0 +1,1 @@
+[{"__symbolic":"module","version":4,"metadata":{"ServerSourceConf":{"__symbolic":"class","members":{"__ctor__":[{"__symbolic":"constructor","parameters":[null]}]},"statics":{"SORT_FIELD_KEY":"_sort","SORT_DIR_KEY":"_order","PAGER_PAGE_KEY":"_page","PAGER_LIMIT_KEY":"_limit","FILTER_FIELD_KEY":"#field#_like","TOTAL_KEY":"x-total-count","DATA_KEY":""}}}}]

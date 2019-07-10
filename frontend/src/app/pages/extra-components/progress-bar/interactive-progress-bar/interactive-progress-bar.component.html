@@ -1,0 +1,20 @@
+<!--
+  ~ Copyright (c) Akveo 2019. All Rights Reserved.
+  ~ Licensed under the Personal / Commercial License.
+  ~ See LICENSE_PERSONAL / LICENSE_COMMERCIAL in the project root for license information on type of purchased license.
+  -->
+
+<nb-card>
+  <nb-card-header>Progress Bar Interactive</nb-card-header>
+  <nb-card-body>
+    <div class="container">
+      <nb-actions size="medium">
+        <nb-action icon="nb-arrow-down" (click)="setValue(value - 25)"></nb-action>
+      </nb-actions>
+      <nb-progress-bar [value]="value" [status]="status" [displayValue]="true"></nb-progress-bar>
+      <nb-actions size="medium">
+        <nb-action icon="nb-arrow-up" (click)="setValue(value + 25)"></nb-action>
+      </nb-actions>
+    </div>
+  </nb-card-body>
+</nb-card>

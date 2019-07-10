@@ -1,0 +1,1 @@
+[{"__symbolic":"module","version":4,"metadata":{"NbAclRole":{"__symbolic":"interface"},"NbAccessControl":{"__symbolic":"interface"},"NbAclOptions":{"__symbolic":"interface"},"NB_SECURITY_OPTIONS_TOKEN":{"__symbolic":"new","expression":{"__symbolic":"reference","module":"@angular/core","name":"InjectionToken","line":15,"character":45},"arguments":["Nebular Security Options"]}}}]

@@ -1,0 +1,73 @@
+/**
+ * @license
+ * Copyright Akveo. All Rights Reserved.
+ * Licensed under the MIT License. See License.txt in the project root for license information.
+ */
+
+@mixin nb-tabset-theme() {
+
+  nb-tabset {
+    // TODO: move to global mixin
+    @include nb-scrollbars(
+        nb-theme(scrollbar-fg),
+        nb-theme(scrollbar-bg),
+        nb-theme(scrollbar-width));
+
+    .tabset {
+      font-family: nb-theme(tabs-font-family);
+      font-size: nb-theme(tabs-font-size);
+
+      padding: 0 nb-theme(tabs-padding);
+      border-bottom: 1px solid nb-theme(tabs-separator);
+
+      .tab {
+        background: nb-theme(tabs-header-bg);
+
+        a {
+          padding: nb-theme(tabs-padding);
+          color: nb-theme(tabs-fg);
+
+          &:hover {
+            color: nb-theme(tabs-fg-heading);
+          }
+
+          &::before {
+            $color-right: nb-theme(tabs-selected);
+            $color-left: adjust-hue(
+                nb-theme(tabs-selected-second-color),
+                nb-theme(tabs-selected-degrees));
+
+            background: nb-theme(tabs-selected);
+
+            @include nb-right-gradient($color-left, $color-right);
+          }
+        }
+
+        &.active {
+          background: nb-theme(tabs-active-bg);
+
+          a {
+            font-weight: nb-theme(tabs-active-font-weight);
+            color: nb-theme(tabs-fg-heading);
+          }
+        }
+
+        &.responsive {
+          @media screen and (max-width: nb-theme(tabs-icon-only-max-width)) {
+            a span {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+
+    nb-tab {
+      font-family: nb-theme(tabs-content-font-family);
+      font-size: nb-theme(tabs-content-font-size);
+      color: nb-theme(tabs-fg-text);
+      background-color: nb-theme(tabs-bg);
+      padding: nb-theme(tabs-content-padding);
+    }
+  }
+}

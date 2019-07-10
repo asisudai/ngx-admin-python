@@ -1,0 +1,90 @@
+/*
+ * Copyright (c) Akveo 2019. All Rights Reserved.
+ * Licensed under the Personal / Commercial License.
+ * See LICENSE_PERSONAL / LICENSE_COMMERCIAL in the project root for license information on type of purchased license.
+ */
+
+import { Component, OnDestroy, ViewChild } from '@angular/core';
+import { takeWhile } from 'rxjs/operators';
+
+import { ChartPanelHeaderComponent } from './chart-panel-header/chart-panel-header.component';
+import { OrdersChartComponent } from './charts/orders-chart.component';
+import { ProfitChartComponent } from './charts/profit-chart.component';
+import { ChartData, ChartSummary } from '../../../@core/interfaces/common/chart';
+import { OrdersProfitChartData } from '../../../@core/interfaces/ecommerce/orders-profit-chart';
+
+@Component({
+  selector: 'ngx-ecommerce-charts',
+  styleUrls: ['./charts-panel.component.scss'],
+  templateUrl: './charts-panel.component.html',
+})
+export class ECommerceChartsPanelComponent implements OnDestroy {
+
+  private alive = true;
+
+  chartPanelSummary: ChartSummary[];
+  period: string = 'week';
+  ordersChartData: ChartData;
+  profitChartData: ChartData;
+
+  @ViewChild('ordersHeader') ordersHeader: ChartPanelHeaderComponent;
+  @ViewChild('profitHeader') profitHeader: ChartPanelHeaderComponent;
+  @ViewChild('ordersChart') ordersChart: OrdersChartComponent;
+  @ViewChild('profitChart') profitChart: ProfitChartComponent;
+
+  constructor(private ordersProfitChartService: OrdersProfitChartData) {
+    this.ordersProfitChartService.getOrderProfitChartSummary()
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((summary) => {
+        this.chartPanelSummary = summary;
+      });
+
+    this.getOrdersChartData(this.period);
+    this.getProfitChartData(this.period);
+  }
+
+  setPeriodAndGetChartData(value: string): void {
+    if (this.period !== value) {
+      this.period = value;
+    }
+
+    this.getOrdersChartData(value);
+    this.getProfitChartData(value);
+  }
+
+  changeTab(selectedTab) {
+    if (selectedTab.tabTitle === 'Profit') {
+      this.profitChart && this.profitChart.resizeChart();
+    } else {
+      this.ordersChart && this.ordersChart.resizeChart();
+    }
+  }
+
+  getOrdersChartData(period: string) {
+    this.ordersProfitChartService.getOrdersChartData(period)
+      .pipe(takeWhile(() => this.alive))
+      .subscribe(ordersChartData => {
+        this.ordersChartData = ordersChartData;
+        if (this.ordersHeader) {
+          this.ordersHeader.legend = ordersChartData.legend;
+          this.ordersHeader && this.ordersHeader.init();
+        }
+      });
+  }
+
+  getProfitChartData(period: string) {
+    this.ordersProfitChartService.getProfitChartData(period)
+      .pipe(takeWhile(() => this.alive))
+      .subscribe(profitChartData => {
+        this.profitChartData = profitChartData;
+        if (this.profitHeader) {
+          this.profitHeader.legend = profitChartData.legend;
+          this.profitHeader && this.profitHeader.init();
+        }
+      });
+  }
+
+  ngOnDestroy() {
+    this.alive = false;
+  }
+}

@@ -1,0 +1,55 @@
+/**
+ * @license
+ * Copyright Akveo. All Rights Reserved.
+ * Licensed under the MIT License. See License.txt in the project root for license information.
+ */
+
+@mixin btn-size() {
+  .btn.btn-lg {
+    @include btn-lg();
+  }
+
+  .btn.btn-md {
+    @include btn-md();
+  }
+
+  .btn.btn-sm {
+    @include btn-sm();
+  }
+
+  .btn.btn-xs {
+    @include btn-xs();
+  }
+}
+
+@mixin btn-lg() {
+  @include button-size(nb-theme(btn-padding-y-lg),
+                       nb-theme(btn-padding-x-lg),
+                       nb-theme(btn-font-size-lg),
+                       nb-theme(btn-line-height),
+                       nb-theme(btn-border-radius));
+}
+
+@mixin btn-md() {
+  @include button-size(nb-theme(btn-padding-y-md),
+                       nb-theme(btn-padding-x-md),
+                       nb-theme(btn-font-size-md),
+                       nb-theme(btn-line-height),
+                       nb-theme(btn-border-radius));
+}
+
+@mixin btn-sm() {
+  @include button-size(nb-theme(btn-padding-y-sm),
+                       nb-theme(btn-padding-x-sm),
+                       nb-theme(btn-font-size-sm),
+                       nb-theme(btn-line-height),
+                       nb-theme(btn-border-radius));
+}
+
+@mixin btn-xs() {
+  @include button-size(nb-theme(btn-padding-y-xs),
+                       nb-theme(btn-padding-x-xs),
+                       nb-theme(btn-font-size-xs),
+                       nb-theme(btn-line-height),
+                       nb-theme(btn-border-radius));
+}

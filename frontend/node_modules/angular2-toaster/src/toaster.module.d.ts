@@ -1,0 +1,5 @@
+import { ModuleWithProviders } from '@angular/core';
+export declare class ToasterModule {
+    static forRoot(): ModuleWithProviders;
+    static forChild(): ModuleWithProviders;
+}

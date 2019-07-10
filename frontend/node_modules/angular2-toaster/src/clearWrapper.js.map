@@ -1,0 +1,1 @@
+{"version":3,"file":"clearWrapper.js","sourceRoot":"","sources":["../../src/clearWrapper.ts"],"names":[],"mappings":"","sourcesContent":["export interface IClearWrapper {\r\n    toastId?: string;\r\n    toastContainerId?: number;\r\n}\r\n"]}

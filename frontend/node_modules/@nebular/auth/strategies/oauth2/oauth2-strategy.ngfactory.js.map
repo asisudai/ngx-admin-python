@@ -1,0 +1,1 @@
+{"version":3,"file":"oauth2-strategy.ngfactory.js","sourceRoot":"","sources":["../../../../../.ng_build/auth/strategies/oauth2/oauth2-strategy.ngfactory.ts"],"names":[],"mappings":"","sourcesContent":["import * as i0 from '@angular/core';\ni0.ComponentFactory;\n"]}

@@ -1,0 +1,1 @@
+[{"__symbolic":"module","version":4,"metadata":{"NbDialogRef":{"__symbolic":"class","arity":1,"members":{"__ctor__":[{"__symbolic":"constructor","parameters":[{"__symbolic":"reference","module":"../cdk","name":"NbOverlayRef","line":29,"character":36}]}],"close":[{"__symbolic":"method"}]}}}}]

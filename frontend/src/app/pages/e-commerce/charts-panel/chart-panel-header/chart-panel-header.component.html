@@ -1,0 +1,26 @@
+<!--
+  ~ Copyright (c) Akveo 2019. All Rights Reserved.
+  ~ Licensed under the Personal / Commercial License.
+  ~ See LICENSE_PERSONAL / LICENSE_COMMERCIAL in the project root for license information on type of purchased license.
+  -->
+
+<div class="chart-header">
+  <ngx-legend-chart [legendItems]="chartLegend"></ngx-legend-chart>
+
+  <div class="dropdown"
+       [ngClass]="{ 'ghost-dropdown': currentTheme === 'corporate' }"
+       ngbDropdown>
+    <button type="button" ngbDropdownToggle class="btn"
+            [ngClass]="{
+              'btn-outline-success': currentTheme === 'default',
+              'btn-primary': currentTheme !== 'default',
+              'btn-sm': breakpoint.width <= breakpoints.is}">
+      {{ type }}
+    </button>
+    <ul class="dropdown-menu" ngbDropdownMenu>
+      <li class="dropdown-item" *ngFor="let period of types" (click)="changePeriod(period)">
+        {{ period }}
+      </li>
+    </ul>
+  </div>
+</div>

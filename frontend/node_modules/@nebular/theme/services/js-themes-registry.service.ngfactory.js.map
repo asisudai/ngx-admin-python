@@ -1,0 +1,1 @@
+{"version":3,"file":"js-themes-registry.service.ngfactory.js","sourceRoot":"","sources":["../../../../.ng_build/theme/services/js-themes-registry.service.ngfactory.ts"],"names":[],"mappings":"","sourcesContent":["import * as i0 from '@angular/core';\ni0.ComponentFactory;\n"]}

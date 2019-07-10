@@ -1,0 +1,1 @@
+[{"__symbolic":"module","version":4,"metadata":{},"exports":[{"from":"./overlay"},{"from":"./a11y/a11y.module"},{"from":"./a11y/focus-trap"},{"from":"./adapter/overlay-container-adapter"},{"from":"./adapter/scroll-dispatcher-adapter"},{"from":"./adapter/viewport-ruler-adapter"}]}]

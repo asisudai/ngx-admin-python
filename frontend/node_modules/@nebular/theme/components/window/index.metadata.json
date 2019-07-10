@@ -1,0 +1,1 @@
+[{"__symbolic":"module","version":4,"metadata":{},"exports":[{"from":"./window.module"},{"from":"./window.service"},{"from":"./window-ref"},{"from":"./window.options","export":["NbWindowConfig","NbWindowState","NB_WINDOW_CONFIG","NbWindowStateChange"]}]}]

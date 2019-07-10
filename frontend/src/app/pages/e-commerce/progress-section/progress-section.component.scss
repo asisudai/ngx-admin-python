@@ -1,0 +1,67 @@
+/*!
+ * Copyright (c) Akveo 2019. All Rights Reserved.
+ * Licensed under the Personal / Commercial License.
+ * See LICENSE_PERSONAL / LICENSE_COMMERCIAL in the project root for license information on type of purchased license.
+ */
+
+@import '../../../@theme/styles/themes';
+
+$shadow-green: #00977e;
+
+@include nb-install-component() {
+  .progress-info {
+    color: nb-theme(color-fg-heading);
+    margin-top: 2.5rem;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  .title {
+    font-family: nb-theme(font-secondary);
+    font-size: nb-theme(font-size-lg);
+    font-weight: nb-theme(font-weight-bold);
+  }
+
+  .value {
+    font-size: 3rem;
+    font-weight: nb-theme(font-weight-light);
+    margin-top: 0.5rem;
+  }
+
+  .description {
+    color: nb-theme(color-fg);
+    margin-top: 0.5rem;
+  }
+
+  .progress-positive /deep/ nb-progress-bar {
+    .progress-container {
+      height: 0.8rem;
+      border-radius: 0;
+    }
+
+    .progress-value {
+      background: nb-theme(progress-bar-background);
+
+      @include nb-for-theme(corporate) {
+        height: 100%;
+      }
+    }
+  }
+
+  .progress-negative /deep/ nb-progress-bar {
+    .progress-container {
+      height: 0.8rem;
+      border-radius: 0;
+    }
+
+    .progress-value {
+      background: nb-theme(progress-bar-warning-background);
+
+      @include nb-for-theme(corporate) {
+        height: 100%;
+      }
+    }
+  }
+}

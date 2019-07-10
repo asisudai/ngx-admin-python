@@ -1,0 +1,23 @@
+<!--
+  ~ Copyright (c) Akveo 2019. All Rights Reserved.
+  ~ Licensed under the Personal / Commercial License.
+  ~ See LICENSE_PERSONAL / LICENSE_COMMERCIAL in the project root for license information on type of purchased license.
+  -->
+
+<nb-card size="medium">
+  <nb-card-body [nbSpinner]="!progressInfoData">
+    <div class="progress-info" *ngFor="let item of progressInfoData">
+      <div class="title">{{ item.title }}</div>
+      <div class="value">{{ item.value | ngxNumberWithCommas }}</div>
+      <div class="progress-positive" *ngIf="item.activeProgress >= 0">
+        <nb-progress-bar [value]="item.activeProgress"></nb-progress-bar>
+      </div>
+      <div class="progress-negative" *ngIf="item.activeProgress < 0">
+        <nb-progress-bar [value]="-1 * item.activeProgress"></nb-progress-bar>
+      </div>
+      <div class="description">
+        <bdi>{{ item.description }}</bdi>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>

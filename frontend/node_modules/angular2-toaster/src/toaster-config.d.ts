@@ -1,0 +1,58 @@
+import { BodyOutputType } from './bodyOutputType';
+export interface IToasterConfig {
+    limit?: number | null;
+    tapToDismiss?: boolean;
+    showCloseButton?: boolean | {
+        [key: string]: boolean;
+    };
+    closeHtml?: string;
+    newestOnTop?: boolean;
+    timeout?: number | {
+        [key: string]: number;
+    };
+    typeClasses?: {
+        [key: string]: string;
+    };
+    iconClasses?: {
+        [key: string]: string;
+    };
+    bodyOutputType?: BodyOutputType;
+    bodyTemplate?: string;
+    defaultTypeClass?: string;
+    positionClass?: string;
+    titleClass?: string;
+    messageClass?: string;
+    animation?: string;
+    preventDuplicates?: boolean;
+    mouseoverTimerStop?: boolean;
+    toastContainerId?: number | null;
+}
+export declare class ToasterConfig implements IToasterConfig {
+    limit?: number | null;
+    tapToDismiss: boolean;
+    showCloseButton: boolean | {
+        [key: string]: boolean;
+    };
+    closeHtml: string;
+    newestOnTop: boolean;
+    timeout: number | {
+        [key: string]: number;
+    };
+    typeClasses: {
+        [key: string]: string;
+    };
+    iconClasses: {
+        [key: string]: string;
+    };
+    bodyOutputType: BodyOutputType;
+    bodyTemplate: string;
+    defaultTypeClass: string;
+    positionClass: string;
+    titleClass: string;
+    messageClass: string;
+    animation: string;
+    preventDuplicates: boolean;
+    mouseoverTimerStop: boolean;
+    toastContainerId?: number | null;
+    constructor(configOverrides?: IToasterConfig);
+}

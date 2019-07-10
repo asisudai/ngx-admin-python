@@ -1,0 +1,22 @@
+<!--
+  ~ Copyright (c) Akveo 2019. All Rights Reserved.
+  ~ Licensed under the Personal / Commercial License.
+  ~ See LICENSE_PERSONAL / LICENSE_COMMERCIAL in the project root for license information on type of purchased license.
+  -->
+
+<nb-card [size]="breakpoint.width >= breakpoints.xxxl || breakpoint.width < breakpoints.md ? 'large' : 'xlarge'">
+  <nb-tabset fullWidth>
+    <nb-tab tabTitle="Contacts" [nbSpinner]="!contacts">
+      <div class="contact" *ngFor="let c of contacts">
+        <nb-user [picture]="c.picture  | ngxAuthToken | async" [name]="c.name" [title]="c.type" size="large"></nb-user>
+        <i class="i-contact nb-phone"></i>
+      </div>
+    </nb-tab>
+    <nb-tab tabTitle="Recent" [nbSpinner]="!recent">
+      <div class="contact" *ngFor="let c of recent">
+        <nb-user [picture]="c.picture | ngxAuthToken | async" [name]="c.name" [title]="c.type" size="large"></nb-user>
+        <span class="time">{{ c.time | date: 'shortTime' }}</span>
+      </div>
+    </nb-tab>
+  </nb-tabset>
+</nb-card>

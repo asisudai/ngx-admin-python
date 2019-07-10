@@ -1,0 +1,1 @@
+{"version":3,"file":"bodyOutputType.js","sourceRoot":"","sources":["../../src/bodyOutputType.ts"],"names":[],"mappings":"AAAA,MAAM,CAAN,IAAY,cAEX;AAFD,WAAY,cAAc;IACtB,yDAAO,CAAA;IAAE,iEAAW,CAAA;IAAE,6DAAS,CAAA;GADvB,cAAc,KAAd,cAAc,QAEzB","sourcesContent":["export enum BodyOutputType {\r\n    Default, TrustedHtml, Component\r\n}\r\n"]}

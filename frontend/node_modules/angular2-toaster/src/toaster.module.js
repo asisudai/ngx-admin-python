@@ -1,0 +1,37 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ToastComponent } from './toast.component';
+import { ToasterContainerComponent } from './toaster-container.component';
+import { ToasterService } from './toaster.service';
+var ToasterModule = /** @class */ (function () {
+    function ToasterModule() {
+    }
+    ToasterModule.forRoot = function () {
+        return {
+            ngModule: ToasterModule,
+            providers: [ToasterService, ToasterContainerComponent]
+        };
+    };
+    ToasterModule.forChild = function () {
+        return {
+            ngModule: ToasterModule,
+            providers: [ToasterContainerComponent]
+        };
+    };
+    ToasterModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [CommonModule],
+                    declarations: [
+                        ToastComponent,
+                        ToasterContainerComponent
+                    ],
+                    exports: [
+                        ToasterContainerComponent,
+                        ToastComponent
+                    ]
+                },] },
+    ];
+    return ToasterModule;
+}());
+export { ToasterModule };
+//# sourceMappingURL=toaster.module.js.map

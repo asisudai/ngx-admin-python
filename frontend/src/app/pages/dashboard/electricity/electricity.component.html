@@ -1,0 +1,63 @@
+<!--
+  ~ Copyright (c) Akveo 2019. All Rights Reserved.
+  ~ Licensed under the Personal / Commercial License.
+  ~ See LICENSE_PERSONAL / LICENSE_COMMERCIAL in the project root for license information on type of purchased license.
+  -->
+
+<nb-card size="large" [nbSpinner]="!listData || !chartData">
+  <div class="consumption-table">
+    <div class="table-header">
+      <div>Electricity</div>
+      <div class="subtitle">Consumption</div>
+    </div>
+
+    <nb-tabset fullWidth>
+      <nb-tab *ngFor="let year of listData" [tabTitle]="year.title" [active]="year.active">
+        <div class="stats-month" *ngFor="let month of year.months">
+          <div>
+            <span class="month">{{ month.month }}</span>
+            <span class="delta" [ngClass]="{ 'down': month.down }">{{ month.delta }}</span>
+          </div>
+          <div class="results">
+            <b>{{ month.kWatts }}</b> kWh / <b>{{ month.cost }}</b> USD
+          </div>
+        </div>
+      </nb-tab>
+    </nb-tabset>
+  </div>
+
+  <div class="chart-container">
+    <div class="chart-header">
+      <div class="header-stats">
+        <div class="stats-block">
+          <div class="subtitle">Consumed</div>
+          <div>
+            <span class="value">{{ chartData?.consumed.value }}</span>
+            <span class="unit">{{ chartData?.consumed.title }}</span>
+          </div>
+        </div>
+
+        <div class="stats-block currency">
+          <div class="subtitle">Spent</div>
+          <div>
+            <span class="value">{{ chartData?.spent.value }}</span>
+            <span class="unit">{{ chartData?.spent.title }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="dropdown"
+           [ngClass]="{ 'ghost-dropdown': currentTheme === 'corporate' }"
+           ngbDropdown>
+        <button type="button" ngbDropdownToggle class="btn"
+                [ngClass]="{ 'btn-outline-success': currentTheme == 'default', 'btn-primary': currentTheme != 'default'}">
+          {{ type }}
+        </button>
+        <ul class="dropdown-menu" ngbDropdownMenu>
+          <li class="dropdown-item" *ngFor="let t of types" (click)="changeType(t)">{{ t }}</li>
+        </ul>
+      </div>
+    </div>
+    <ngx-electricity-chart #chart *ngIf="chartData" [data]="chartData"></ngx-electricity-chart>
+  </div>
+</nb-card>

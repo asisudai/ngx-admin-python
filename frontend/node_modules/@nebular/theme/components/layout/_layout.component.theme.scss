@@ -1,0 +1,208 @@
+/**
+ * @license
+ * Copyright Akveo. All Rights Reserved.
+ * Licensed under the MIT License. See License.txt in the project root for license information.
+ */
+
+@mixin window-mode($padding-top) {
+  padding-top: $padding-top;
+
+  nb-sidebar.fixed {
+    left: calc((100vw - #{nb-theme(layout-window-mode-max-width)}) / 2);
+  }
+
+  .layout .layout-container {
+    nb-sidebar.fixed.right {
+      right: calc((100vw - #{nb-theme(layout-window-mode-max-width)}) / 2);
+    }
+
+    nb-sidebar.fixed {
+      top: calc(#{nb-theme(header-height)} + #{$padding-top});
+    }
+  }
+
+  .scrollable-container {
+    height: calc(100vh - #{$padding-top});
+    box-shadow: nb-theme(layout-window-shadow);
+  }
+}
+
+@mixin nb-layout-theme() {
+
+  nb-layout {
+    @include nb-scrollbars(
+        nb-theme(scrollbar-fg),
+        nb-theme(scrollbar-bg),
+        nb-theme(scrollbar-width));
+  }
+
+
+  nb-layout.with-scroll .scrollable-container {
+    overflow: auto;
+    height: 100vh;
+    display: block;
+
+    @include media-breakpoint-down(sm) {
+      overflow-y: scroll;
+      -webkit-overflow-scrolling: touch;
+    }
+  }
+
+  nb-layout.overlay-scroll-block .scrollable-container {
+    overflow: hidden;
+  }
+
+  .layout {
+    // TODO: check this prop name
+    min-width: nb-theme(layout-window-mode-min-width);
+  }
+
+  nb-layout.window-mode {
+
+    background: nb-theme(layout-window-mode-bg);
+    display: block;
+
+    .scrollable-container {
+      max-width: nb-theme(layout-window-mode-max-width);
+      margin: 0 auto;
+    }
+
+    .layout nb-layout-header nav {
+      max-width: nb-theme(layout-window-mode-max-width);
+      margin: 0 auto;
+    }
+
+    @media screen and (min-width: nb-theme(layout-window-mode-max-width) + 20px) {
+      $padding-top: nb-theme(layout-window-mode-padding-top) / 4;
+
+      @include window-mode($padding-top);
+
+      nb-layout.with-scroll {
+        .scrollable-container {
+          height: calc(100vh - #{$padding-top});
+        }
+      }
+    }
+
+    @media screen and (min-width: nb-theme(layout-window-mode-max-width) + 150px) {
+      $padding-top: nb-theme(layout-window-mode-padding-top) / 2;
+
+      @include window-mode($padding-top);
+
+      nb-layout.with-scroll {
+        .scrollable-container {
+          height: calc(100vh - #{$padding-top});
+        }
+      }
+    }
+
+    @media screen and (min-width: nb-theme(layout-window-mode-max-width) + 300px) {
+      $padding-top: nb-theme(layout-window-mode-padding-top);
+
+      @include window-mode($padding-top);
+
+      nb-layout.with-scroll {
+        .scrollable-container {
+          height: calc(100vh - #{$padding-top});
+        }
+      }
+    }
+  }
+
+  nb-layout .layout {
+    // TODO: probably we need to separate this form here and move it to the typography scss module
+    font-family: nb-theme(layout-font-family);
+    font-size: nb-theme(layout-font-size);
+    line-height: nb-theme(layout-line-height);
+    color: nb-theme(layout-fg);
+    background: nb-theme(layout-bg);
+    min-height: nb-theme(layout-min-height);
+
+    nb-layout-header {
+      font-family: nb-theme(header-font-family);
+      font-size: nb-theme(header-font-size);
+      line-height: nb-theme(header-line-height);
+
+      nav {
+        box-shadow: nb-theme(header-shadow);
+        height: nb-theme(header-height);
+        padding: nb-theme(header-padding);
+        background: nb-theme(header-bg);
+        color: nb-theme(header-fg);
+
+        a {
+          color: nb-theme(header-fg);
+
+          @include hover-focus-active {
+            color: nb-theme(header-fg);
+          }
+        }
+      }
+
+      & ~ .layout-container {
+        min-height: calc(#{nb-theme(layout-min-height)} - #{nb-theme(header-height)});
+      }
+
+      &.fixed ~ .layout-container {
+        padding-top: nb-theme(header-height);
+        min-height: nb-theme(layout-min-height);
+      }
+
+      &.fixed ~ .layout-container > nb-sidebar > .main-container {
+        height: calc(#{nb-theme(sidebar-height)} - #{nb-theme(header-height)});
+      }
+    }
+
+    .layout-container {
+
+      nb-sidebar.fixed {
+        top: nb-theme(header-height);
+      }
+
+      .content {
+
+        nb-layout-footer {
+          box-shadow: nb-theme(footer-shadow);
+
+          nav {
+            padding: nb-theme(footer-padding);
+            background: nb-theme(footer-bg);
+            color: nb-theme(footer-fg);
+            border-top: 1px solid nb-theme(footer-separator);
+
+            a {
+              color: nb-theme(footer-fg-highlight);
+
+              @include hover-focus-active {
+                color: nb-theme(footer-fg-highlight);
+              }
+            }
+          }
+        }
+
+        &.center {
+          width: nb-theme(layout-content-width);
+          flex: 0 100 nb-theme(layout-content-width) !important;
+        }
+
+        .columns nb-layout-column {
+          padding: nb-theme(layout-padding);
+
+          @include media-breakpoint-down(md) {
+            padding: nb-theme(layout-medium-padding);
+          }
+
+          @include media-breakpoint-down(sm) {
+            padding: nb-theme(layout-small-padding);
+          }
+        }
+      }
+    }
+  }
+
+  nb-layout.with-subheader {
+    nb-sidebar .main-container {
+      box-shadow: none; // so that we don't have a shadow over the header in this mode
+    }
+  }
+}

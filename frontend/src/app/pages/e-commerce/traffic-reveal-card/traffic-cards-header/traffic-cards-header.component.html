@@ -1,0 +1,22 @@
+<!--
+  ~ Copyright (c) Akveo 2019. All Rights Reserved.
+  ~ Licensed under the Personal / Commercial License.
+  ~ See LICENSE_PERSONAL / LICENSE_COMMERCIAL in the project root for license information on type of purchased license.
+  -->
+
+<nb-card-header>
+  <span>Traffic</span>
+  <div class="dropdown ghost-dropdown" ngbDropdown>
+    <button type="button" class="btn btn-sm" ngbDropdownToggle
+            [ngClass]="{
+              'btn-success': currentTheme === 'default',
+              'btn-primary': currentTheme !== 'default'}">
+      {{ type }}
+    </button>
+    <ul ngbDropdownMenu class="dropdown-menu">
+      <li class="dropdown-item" *ngFor="let period of types" (click)="changePeriod(period)">
+        {{ period }}
+      </li>
+    </ul>
+  </div>
+</nb-card-header>

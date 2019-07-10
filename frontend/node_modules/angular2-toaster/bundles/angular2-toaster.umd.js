@@ -1,0 +1,549 @@
+(function (global, factory) {
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('rxjs'), require('rxjs/operators'), require('@angular/animations'), require('@angular/common')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/platform-browser', 'rxjs', 'rxjs/operators', '@angular/animations', '@angular/common'], factory) :
+	(factory((global.angular2toaster = {}),global.ng.core,global.platformBrowser,global.rxjs,global.operators,global.animations,global.ng.common));
+}(this, (function (exports,core,platformBrowser,rxjs,operators,animations,common) { 'use strict';
+
+(function (BodyOutputType) {
+    BodyOutputType[BodyOutputType["Default"] = 0] = "Default";
+    BodyOutputType[BodyOutputType["TrustedHtml"] = 1] = "TrustedHtml";
+    BodyOutputType[BodyOutputType["Component"] = 2] = "Component";
+})(exports.BodyOutputType || (exports.BodyOutputType = {}));
+
+var ToastComponent = /** @class */ (function () {
+    function ToastComponent(sanitizer, componentFactoryResolver, changeDetectorRef) {
+        this.sanitizer = sanitizer;
+        this.componentFactoryResolver = componentFactoryResolver;
+        this.changeDetectorRef = changeDetectorRef;
+        this.bodyOutputType = exports.BodyOutputType;
+        this.clickEvent = new core.EventEmitter();
+    }
+    ToastComponent.prototype.ngOnInit = function () {
+        if (this.toast.closeHtml) {
+            this.safeCloseHtml = this.sanitizer.bypassSecurityTrustHtml(this.toast.closeHtml);
+        }
+        if (this.toast.bodyOutputType === exports.BodyOutputType.TrustedHtml) {
+            this.safeBodyHtml = this.sanitizer.bypassSecurityTrustHtml(this.toast.body);
+        }
+    };
+    ToastComponent.prototype.ngAfterViewInit = function () {
+        if (this.toast.bodyOutputType === this.bodyOutputType.Component) {
+            var component = this.componentFactoryResolver.resolveComponentFactory(this.toast.body);
+            var componentInstance = this.componentBody.createComponent(component, undefined, this.componentBody.injector);
+            componentInstance.instance.toast = this.toast;
+            this.changeDetectorRef.detectChanges();
+        }
+    };
+    ToastComponent.prototype.click = function (event, toast) {
+        event.stopPropagation();
+        this.clickEvent.emit({
+            value: { toast: toast, isCloseButton: true }
+        });
+    };
+    ToastComponent.decorators = [
+        { type: core.Component, args: [{
+                    selector: '[toastComp]',
+                    template: "\n        <i class=\"toaster-icon\" [ngClass]=\"iconClass\"></i>\n        <div class=\"toast-content\">\n            <div [ngClass]=\"titleClass\">{{toast.title}}</div>\n            <div [ngClass]=\"messageClass\" [ngSwitch]=\"toast.bodyOutputType\">\n                <div *ngSwitchCase=\"bodyOutputType.Component\" #componentBody></div>\n                <div *ngSwitchCase=\"bodyOutputType.TrustedHtml\" [innerHTML]=\"safeBodyHtml\"></div>\n                <div *ngSwitchCase=\"bodyOutputType.Default\">{{toast.body}}</div>\n            </div>\n        </div>\n        <div class=\"toast-close-button\" *ngIf=\"toast.showCloseButton\" (click)=\"click($event, toast)\"\n            [innerHTML]=\"safeCloseHtml\">\n        </div>"
+                },] },
+    ];
+    /** @nocollapse */
+    ToastComponent.ctorParameters = function () { return [
+        { type: platformBrowser.DomSanitizer, },
+        { type: core.ComponentFactoryResolver, },
+        { type: core.ChangeDetectorRef, },
+    ]; };
+    ToastComponent.propDecorators = {
+        "toast": [{ type: core.Input },],
+        "iconClass": [{ type: core.Input },],
+        "titleClass": [{ type: core.Input },],
+        "messageClass": [{ type: core.Input },],
+        "componentBody": [{ type: core.ViewChild, args: ['componentBody', { read: core.ViewContainerRef },] },],
+        "clickEvent": [{ type: core.Output },],
+    };
+    return ToastComponent;
+}());
+
+var ToasterConfig = /** @class */ (function () {
+    function ToasterConfig(configOverrides) {
+        configOverrides = configOverrides || {};
+        this.limit = configOverrides.limit || null;
+        this.tapToDismiss = configOverrides.tapToDismiss != null ? configOverrides.tapToDismiss : true;
+        this.showCloseButton = configOverrides.showCloseButton != null ? configOverrides.showCloseButton : false;
+        this.closeHtml = configOverrides.closeHtml || '<button class="toast-close-button" type="button">&times;</button>';
+        this.newestOnTop = configOverrides.newestOnTop != null ? configOverrides.newestOnTop : true;
+        this.timeout = configOverrides.timeout != null ? configOverrides.timeout : 5000;
+        this.typeClasses = configOverrides.typeClasses || {
+            error: 'toast-error',
+            info: 'toast-info',
+            wait: 'toast-wait',
+            success: 'toast-success',
+            warning: 'toast-warning'
+        };
+        this.iconClasses = configOverrides.iconClasses || {
+            error: 'icon-error',
+            info: 'icon-info',
+            wait: 'icon-wait',
+            success: 'icon-success',
+            warning: 'icon-warning'
+        };
+        this.bodyOutputType = configOverrides.bodyOutputType || exports.BodyOutputType.Default;
+        this.bodyTemplate = configOverrides.bodyTemplate || 'toasterBodyTmpl.html';
+        this.defaultTypeClass = configOverrides.defaultTypeClass || 'toast-info';
+        this.positionClass = configOverrides.positionClass || 'toast-top-right';
+        this.titleClass = configOverrides.titleClass || 'toast-title';
+        this.messageClass = configOverrides.messageClass || 'toast-message';
+        this.animation = configOverrides.animation || '';
+        this.preventDuplicates = configOverrides.preventDuplicates != null ? configOverrides.preventDuplicates : false;
+        this.mouseoverTimerStop = configOverrides.mouseoverTimerStop != null ? configOverrides.mouseoverTimerStop : false;
+        this.toastContainerId = configOverrides.toastContainerId != null ? configOverrides.toastContainerId : null;
+    }
+    return ToasterConfig;
+}());
+
+// http://stackoverflow.com/questions/26501688/a-typescript-guid-class
+var Guid = /** @class */ (function () {
+    function Guid() {
+    }
+    Guid.newGuid = function () {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    };
+    return Guid;
+}());
+var ToasterService = /** @class */ (function () {
+    /**
+     * Creates an instance of ToasterService.
+     */
+    function ToasterService() {
+        var _this = this;
+        this.addToast = new rxjs.Observable(function (observer) { return _this._addToast = observer; }).pipe(operators.share());
+        this.clearToasts = new rxjs.Observable(function (observer) { return _this._clearToasts = observer; }).pipe(operators.share());
+        this._removeToastSubject = new rxjs.Subject();
+        this.removeToast = this._removeToastSubject.pipe(operators.share());
+    }
+    /**
+     * Synchronously create and show a new toast instance.
+     *
+     * @param {(string | Toast)} type The type of the toast, or a Toast object.
+     * @param {string=} title The toast title.
+     * @param {string=} body The toast body.
+     * @returns {Toast}
+     *          The newly created Toast instance with a randomly generated GUID Id.
+     */
+    /**
+         * Synchronously create and show a new toast instance.
+         *
+         * @param {(string | Toast)} type The type of the toast, or a Toast object.
+         * @param {string=} title The toast title.
+         * @param {string=} body The toast body.
+         * @returns {Toast}
+         *          The newly created Toast instance with a randomly generated GUID Id.
+         */
+    ToasterService.prototype.pop = /**
+         * Synchronously create and show a new toast instance.
+         *
+         * @param {(string | Toast)} type The type of the toast, or a Toast object.
+         * @param {string=} title The toast title.
+         * @param {string=} body The toast body.
+         * @returns {Toast}
+         *          The newly created Toast instance with a randomly generated GUID Id.
+         */
+    function (type, title, body) {
+        var toast = typeof type === 'string' ? { type: type, title: title, body: body } : type;
+        if (!toast.toastId) {
+            toast.toastId = Guid.newGuid();
+        }
+        if (!this._addToast) {
+            throw new Error('No Toaster Containers have been initialized to receive toasts.');
+        }
+        this._addToast.next(toast);
+        return toast;
+    };
+    /**
+     * Asynchronously create and show a new toast instance.
+     *
+     * @param {(string | Toast)} type The type of the toast, or a Toast object.
+     * @param {string=} title The toast title.
+     * @param {string=} body The toast body.
+     * @returns {Observable<Toast>}
+     *          A hot Observable that can be subscribed to in order to receive the Toast instance
+     *          with a randomly generated GUID Id.
+     */
+    /**
+         * Asynchronously create and show a new toast instance.
+         *
+         * @param {(string | Toast)} type The type of the toast, or a Toast object.
+         * @param {string=} title The toast title.
+         * @param {string=} body The toast body.
+         * @returns {Observable<Toast>}
+         *          A hot Observable that can be subscribed to in order to receive the Toast instance
+         *          with a randomly generated GUID Id.
+         */
+    ToasterService.prototype.popAsync = /**
+         * Asynchronously create and show a new toast instance.
+         *
+         * @param {(string | Toast)} type The type of the toast, or a Toast object.
+         * @param {string=} title The toast title.
+         * @param {string=} body The toast body.
+         * @returns {Observable<Toast>}
+         *          A hot Observable that can be subscribed to in order to receive the Toast instance
+         *          with a randomly generated GUID Id.
+         */
+    function (type, title, body) {
+        var _this = this;
+        setTimeout(function () {
+            _this.pop(type, title, body);
+        }, 0);
+        return this.addToast;
+    };
+    /**
+     * Clears a toast by toastId and/or toastContainerId.
+     *
+     * @param {string} toastId The toastId to clear.
+     * @param {number=} toastContainerId
+     *        The toastContainerId of the container to remove toasts from.
+     */
+    /**
+         * Clears a toast by toastId and/or toastContainerId.
+         *
+         * @param {string} toastId The toastId to clear.
+         * @param {number=} toastContainerId
+         *        The toastContainerId of the container to remove toasts from.
+         */
+    ToasterService.prototype.clear = /**
+         * Clears a toast by toastId and/or toastContainerId.
+         *
+         * @param {string} toastId The toastId to clear.
+         * @param {number=} toastContainerId
+         *        The toastContainerId of the container to remove toasts from.
+         */
+    function (toastId, toastContainerId) {
+        var clearWrapper = {
+            toastId: toastId, toastContainerId: toastContainerId
+        };
+        this._clearToasts.next(clearWrapper);
+    };
+    ToasterService.decorators = [
+        { type: core.Injectable },
+    ];
+    /** @nocollapse */
+    ToasterService.ctorParameters = function () { return []; };
+    return ToasterService;
+}());
+
+var ToasterContainerComponent = /** @class */ (function () {
+    function ToasterContainerComponent(toasterService, ref, ngZone) {
+        this.ref = ref;
+        this.ngZone = ngZone;
+        this.timeoutIds = new Map();
+        this.toasts = [];
+        this.toasterService = toasterService;
+    }
+    ToasterContainerComponent.prototype.ngOnInit = function () {
+        this.registerSubscribers();
+        if (this.isNullOrUndefined(this.toasterconfig)) {
+            this.toasterconfig = new ToasterConfig();
+        }
+    };
+    // event handlers
+    // event handlers
+    ToasterContainerComponent.prototype.click = 
+    // event handlers
+    function (toast, isCloseButton) {
+        if (this.toasterconfig.tapToDismiss || (toast.showCloseButton && isCloseButton)) {
+            var removeToast = true;
+            if (toast.clickHandler) {
+                if (typeof toast.clickHandler === 'function') {
+                    removeToast = toast.clickHandler(toast, isCloseButton);
+                }
+                else {
+                    console.log('The toast click handler is not a callable function.');
+                    return false;
+                }
+            }
+            if (removeToast) {
+                this.removeToast(toast);
+            }
+        }
+    };
+    ToasterContainerComponent.prototype.childClick = function ($event) {
+        this.click($event.value.toast, $event.value.isCloseButton);
+    };
+    ToasterContainerComponent.prototype.stopTimer = function (toast) {
+        if (this.toasterconfig.mouseoverTimerStop) {
+            var toastId = this.toastIdOrDefault(toast);
+            var timeoutId = this.timeoutIds.get(toastId);
+            if (timeoutId) {
+                window.clearTimeout(timeoutId);
+                this.timeoutIds.delete(toastId);
+            }
+        }
+    };
+    ToasterContainerComponent.prototype.restartTimer = function (toast) {
+        var timeoutId = this.timeoutIds.get(this.toastIdOrDefault(toast));
+        if (this.toasterconfig.mouseoverTimerStop) {
+            if (!timeoutId) {
+                this.configureTimer(toast);
+            }
+        }
+        else if (toast.timeout !== 0 && !timeoutId && this.toasterconfig.timeout) {
+            this.removeToast(toast);
+        }
+    };
+    // private functions
+    // private functions
+    ToasterContainerComponent.prototype.registerSubscribers = 
+    // private functions
+    function () {
+        var _this = this;
+        this.addToastSubscriber = this.toasterService.addToast.subscribe(function (toast) {
+            _this.addToast(toast);
+        });
+        this.clearToastsSubscriber = this.toasterService.clearToasts.subscribe(function (clearWrapper) {
+            _this.clearToasts(clearWrapper);
+        });
+    };
+    ToasterContainerComponent.prototype.addToast = function (toast) {
+        if (toast.toastContainerId && this.toasterconfig.toastContainerId
+            && toast.toastContainerId !== this.toasterconfig.toastContainerId) {
+            return;
+        }
+        
+        if (!toast.type) {
+            toast.type = this.toasterconfig.defaultTypeClass;
+        }
+        if (this.toasterconfig.preventDuplicates && this.toasts.length > 0) {
+            if (toast.toastId && this.toasts.some(function (t) { return t.toastId === toast.toastId; })) {
+                return;
+            }
+            else if (this.toasts.some(function (t) { return t.body === toast.body; })) {
+                return;
+            }
+        }
+        if (this.isNullOrUndefined(toast.showCloseButton)) {
+            if (typeof this.toasterconfig.showCloseButton === 'object') {
+                toast.showCloseButton = this.toasterconfig.showCloseButton[toast.type];
+            }
+            else if (typeof this.toasterconfig.showCloseButton === 'boolean') {
+                toast.showCloseButton = this.toasterconfig.showCloseButton;
+            }
+        }
+        if (toast.showCloseButton) {
+            toast.closeHtml = toast.closeHtml || this.toasterconfig.closeHtml;
+        }
+        toast.bodyOutputType = toast.bodyOutputType || this.toasterconfig.bodyOutputType;
+        this.configureTimer(toast);
+        if (this.toasterconfig.newestOnTop) {
+            this.toasts.unshift(toast);
+            if (this.isLimitExceeded()) {
+                this.toasts.pop();
+            }
+        }
+        else {
+            this.toasts.push(toast);
+            if (this.isLimitExceeded()) {
+                this.toasts.shift();
+            }
+        }
+        if (toast.onShowCallback) {
+            toast.onShowCallback(toast);
+        }
+    };
+    ToasterContainerComponent.prototype.configureTimer = function (toast) {
+        var _this = this;
+        var timeout = (typeof toast.timeout === 'number')
+            ? toast.timeout : this.toasterconfig.timeout;
+        if (typeof timeout === 'object') {
+            timeout = timeout[toast.type];
+        }
+        
+        if (timeout > 0) {
+            this.ngZone.runOutsideAngular(function () {
+                var timeoutId = window.setTimeout(function () {
+                    _this.ngZone.run(function () {
+                        _this.ref.markForCheck();
+                        _this.removeToast(toast);
+                    });
+                }, timeout);
+                _this.timeoutIds.set(_this.toastIdOrDefault(toast), timeoutId);
+            });
+        }
+    };
+    ToasterContainerComponent.prototype.isLimitExceeded = function () {
+        return this.toasterconfig.limit && this.toasts.length > this.toasterconfig.limit;
+    };
+    ToasterContainerComponent.prototype.removeToast = function (toast) {
+        var index = this.toasts.indexOf(toast);
+        if (index < 0) {
+            return;
+        }
+        
+        var toastId = this.toastIdOrDefault(toast);
+        var timeoutId = this.timeoutIds.get(toastId);
+        this.toasts.splice(index, 1);
+        if (timeoutId) {
+            window.clearTimeout(timeoutId);
+            this.timeoutIds.delete(toastId);
+        }
+        if (toast.onHideCallback) {
+            toast.onHideCallback(toast);
+        }
+        this.toasterService._removeToastSubject.next({ toastId: toastId, toastContainerId: toast.toastContainerId });
+    };
+    ToasterContainerComponent.prototype.removeAllToasts = function () {
+        for (var i = this.toasts.length - 1; i >= 0; i--) {
+            this.removeToast(this.toasts[i]);
+        }
+    };
+    ToasterContainerComponent.prototype.clearToasts = function (clearWrapper) {
+        var toastId = clearWrapper.toastId;
+        var toastContainerId = clearWrapper.toastContainerId;
+        if (this.isNullOrUndefined(toastContainerId)) {
+            this.clearToastsAction(toastId);
+        }
+        else if (toastContainerId === this.toasterconfig.toastContainerId) {
+            this.clearToastsAction(toastId);
+        }
+    };
+    ToasterContainerComponent.prototype.clearToastsAction = function (toastId) {
+        if (toastId) {
+            this.removeToast(this.toasts.filter(function (t) { return t.toastId === toastId; })[0]);
+        }
+        else {
+            this.removeAllToasts();
+        }
+    };
+    ToasterContainerComponent.prototype.toastIdOrDefault = function (toast) {
+        return toast.toastId || '';
+    };
+    ToasterContainerComponent.prototype.isNullOrUndefined = function (value) {
+        return value === null || typeof value === 'undefined';
+    };
+    ToasterContainerComponent.prototype.ngOnDestroy = function () {
+        if (this.addToastSubscriber) {
+            this.addToastSubscriber.unsubscribe();
+        }
+        if (this.clearToastsSubscriber) {
+            this.clearToastsSubscriber.unsubscribe();
+        }
+    };
+    ToasterContainerComponent.decorators = [
+        { type: core.Component, args: [{
+                    selector: 'toaster-container',
+                    template: "\n        <div id=\"toast-container\" [ngClass]=\"[toasterconfig.positionClass]\">\n            <div toastComp *ngFor=\"let toast of toasts\" class=\"toast\" [toast]=\"toast\"\n                [@toastState]=\"toasterconfig.animation\"\n                [iconClass]=\"toasterconfig.iconClasses[toast.type]\"\n                [titleClass]=\"toasterconfig.titleClass\"\n                [messageClass]=\"toasterconfig.messageClass\"\n                [ngClass]=\"toasterconfig.typeClasses[toast.type]\"\n                (click)=\"click(toast)\" (clickEvent)=\"childClick($event)\"\n                (mouseover)=\"stopTimer(toast)\" (mouseout)=\"restartTimer(toast)\">\n            </div>\n        </div>\n        ",
+                    animations: [
+                        animations.trigger('toastState', [
+                            animations.state('flyRight, flyLeft, slideDown, slideUp, fade', animations.style({ opacity: 1, transform: 'translate(0,0)' })),
+                            animations.transition('void => flyRight', [
+                                animations.style({
+                                    opacity: 0, transform: 'translateX(100%)'
+                                }),
+                                animations.animate('0.25s ease-in')
+                            ]),
+                            animations.transition('flyRight => void', [
+                                animations.animate('0.25s 10ms ease-out', animations.style({
+                                    opacity: 0, transform: 'translateX(100%)'
+                                }))
+                            ]),
+                            animations.transition('void => flyLeft', [
+                                animations.style({
+                                    opacity: 0, transform: 'translateX(-100%)'
+                                }),
+                                animations.animate('0.25s ease-in')
+                            ]),
+                            animations.transition('flyLeft => void', [
+                                animations.animate('0.25s 10ms ease-out', animations.style({
+                                    opacity: 0, transform: 'translateX(-100%)'
+                                }))
+                            ]),
+                            animations.transition('void => slideDown', [
+                                animations.style({
+                                    opacity: 0, transform: 'translateY(-200%)'
+                                }),
+                                animations.animate('0.3s ease-in')
+                            ]),
+                            animations.transition('slideDown => void', [
+                                animations.animate('0.3s 10ms ease-out', animations.style({
+                                    opacity: 0, transform: 'translateY(200%)'
+                                }))
+                            ]),
+                            animations.transition('void => slideUp', [
+                                animations.style({
+                                    opacity: 0, transform: 'translateY(200%)'
+                                }),
+                                animations.animate('0.3s ease-in')
+                            ]),
+                            animations.transition('slideUp => void', [
+                                animations.animate('0.3s 10ms ease-out', animations.style({
+                                    opacity: 0, transform: 'translateY(-200%)'
+                                }))
+                            ]),
+                            animations.transition('void => fade', [
+                                animations.style({
+                                    opacity: 0,
+                                }),
+                                animations.animate('0.3s ease-in')
+                            ]),
+                            animations.transition('fade => void', [
+                                animations.animate('0.3s 10ms ease-out', animations.style({
+                                    opacity: 0,
+                                }))
+                            ])
+                        ]),
+                    ]
+                },] },
+    ];
+    /** @nocollapse */
+    ToasterContainerComponent.ctorParameters = function () { return [
+        { type: ToasterService, },
+        { type: core.ChangeDetectorRef, },
+        { type: core.NgZone, },
+    ]; };
+    ToasterContainerComponent.propDecorators = {
+        "toasterconfig": [{ type: core.Input },],
+    };
+    return ToasterContainerComponent;
+}());
+
+var ToasterModule = /** @class */ (function () {
+    function ToasterModule() {
+    }
+    ToasterModule.forRoot = function () {
+        return {
+            ngModule: ToasterModule,
+            providers: [ToasterService, ToasterContainerComponent]
+        };
+    };
+    ToasterModule.forChild = function () {
+        return {
+            ngModule: ToasterModule,
+            providers: [ToasterContainerComponent]
+        };
+    };
+    ToasterModule.decorators = [
+        { type: core.NgModule, args: [{
+                    imports: [common.CommonModule],
+                    declarations: [
+                        ToastComponent,
+                        ToasterContainerComponent
+                    ],
+                    exports: [
+                        ToasterContainerComponent,
+                        ToastComponent
+                    ]
+                },] },
+    ];
+    return ToasterModule;
+}());
+
+exports.ToastComponent = ToastComponent;
+exports.ToasterContainerComponent = ToasterContainerComponent;
+exports.ToasterService = ToasterService;
+exports.ToasterConfig = ToasterConfig;
+exports.ToasterModule = ToasterModule;
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+})));

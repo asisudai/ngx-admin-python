@@ -1,0 +1,36 @@
+/*!
+ * Copyright (c) Akveo 2019. All Rights Reserved.
+ * Licensed under the Personal / Commercial License.
+ * See LICENSE_PERSONAL / LICENSE_COMMERCIAL in the project root for license information on type of purchased license.
+ */
+
+@import '../../../../@theme/styles/themes';
+@import '~@nebular/bootstrap/styles/buttons';
+
+@include nb-install-component() {
+
+  nb-card-body {
+    padding: 0 0 29px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .shape-container {
+    margin: 1.25rem 1.25rem 0;
+  }
+
+  .container-title {
+    margin-bottom: 0.25rem;
+  }
+
+  .subheader {
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+
+    span:nth-child(2) {
+      color: nb-theme(color-fg-heading);
+      font-weight: nb-theme(font-weight-bold);
+    }
+  }
+}

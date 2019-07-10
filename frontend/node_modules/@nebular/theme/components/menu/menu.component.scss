@@ -1,0 +1,29 @@
+/**
+ * @license
+ * Copyright Akveo. All Rights Reserved.
+ * Licensed under the MIT License. See License.txt in the project root for license information.
+ */
+
+@import '../../styles/core/mixins';
+
+:host /deep/ {
+  display: block;
+
+  .menu-items,
+  .menu-item > .menu-items {
+    list-style-type: none;
+    overflow: hidden;
+  }
+
+  .menu-item a {
+    display: flex;
+    color: inherit;
+    text-decoration: none;
+    align-items: center;
+
+    .menu-title {
+      flex: 1;
+      @include nb-rtl(text-align, right);
+    }
+  }
+}

@@ -1,0 +1,93 @@
+/**
+ * @license
+ * Copyright Akveo. All Rights Reserved.
+ * Licensed under the MIT License. See License.txt in the project root for license information.
+ */
+
+@mixin checkbox-border($color) {
+  .customised-control-input:checked + .customised-control-indicator {
+    border-color: $color;
+  }
+
+  &:hover .customised-control-input:enabled + .customised-control-indicator,
+  .customised-control-input:focus:enabled + .customised-control-indicator {
+    border-color: lighten($color, 10%);
+  }
+}
+
+@mixin check-mark-style($size, $color, $border-size) {
+  &::before {
+    height: calc(#{$size} * 0.6);
+    width: calc(#{$size} * 0.4);
+    border-color: $color;
+    border-width: 0 $border-size $border-size 0;
+  }
+}
+
+@mixin nb-checkbox-theme() {
+  nb-checkbox {
+    .customised-control-indicator {
+      background-color: nb-theme(checkbox-bg);
+      width: nb-theme(checkbox-size);
+      height: nb-theme(checkbox-size);
+      border: nb-theme(checkbox-border-size) solid nb-theme(checkbox-border-color);
+
+      @include check-mark-style(
+        nb-theme(checkbox-size),
+        nb-theme(checkbox-checkmark),
+        nb-theme(checkbox-border-size)
+      );
+    }
+
+    .customised-control-input:checked + .customised-control-indicator {
+      background-color: nb-theme(checkbox-checked-bg);
+      width: nb-theme(checkbox-checked-size);
+      height: nb-theme(checkbox-checked-size);
+      border: nb-theme(checkbox-checked-border-size) solid nb-theme(checkbox-checked-border-color);
+
+      @include check-mark-style(
+        nb-theme(checkbox-checked-size),
+        nb-theme(checkbox-checked-checkmark),
+        nb-theme(checkbox-checked-border-size)
+      );
+    }
+
+    .customised-control-input:disabled + .customised-control-indicator {
+      background-color: nb-theme(checkbox-disabled-bg);
+      width: nb-theme(checkbox-disabled-size);
+      height: nb-theme(checkbox-disabled-size);
+      border: nb-theme(checkbox-disabled-border-size) solid nb-theme(checkbox-border-color);
+
+      @include check-mark-style(
+        nb-theme(checkbox-disabled-size),
+        nb-theme(checkbox-checkmark),
+        nb-theme(checkbox-disabled-border-size)
+      );
+    }
+
+    .customised-control-input:disabled:checked + .customised-control-indicator {
+      border-color: nb-theme(checkbox-checked-border-color);
+
+      @include check-mark-style(
+          nb-theme(checkbox-disabled-size),
+          nb-theme(checkbox-disabled-checkmark),
+          nb-theme(checkbox-disabled-border-size)
+      );
+    }
+
+    @include checkbox-border(nb-theme(checkbox-checked-border-color));
+    &.success {
+      @include checkbox-border(nb-theme(color-success));
+    }
+    &.warning {
+      @include checkbox-border(nb-theme(color-warning));
+    }
+    &.danger {
+      @include checkbox-border(nb-theme(color-danger));
+    }
+
+    .customised-control-description {
+      color: nb-theme(color-fg-heading);
+    }
+  }
+}

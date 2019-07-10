@@ -1,0 +1,1 @@
+:host{display:flex;align-items:flex-end;overflow-x:auto}:host /deep/ nb-window:not(.full-screen){margin:0 2rem}

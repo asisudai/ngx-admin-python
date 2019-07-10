@@ -1,0 +1,1 @@
+[{"__symbolic":"module","version":4,"metadata":{},"exports":[{"from":"./security.options"},{"from":"./security.module"},{"from":"./services/acl.service"},{"from":"./services/access-checker.service"},{"from":"./services/role.provider"}]}]

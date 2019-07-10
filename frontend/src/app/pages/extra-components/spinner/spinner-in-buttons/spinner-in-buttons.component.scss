@@ -1,0 +1,18 @@
+/*!
+ * Copyright (c) Akveo 2019. All Rights Reserved.
+ * Licensed under the Personal / Commercial License.
+ * See LICENSE_PERSONAL / LICENSE_COMMERCIAL in the project root for license information on type of purchased license.
+ */
+
+@import '../../../../@theme/styles/themes';
+
+@include nb-install-component() {
+  button {
+    margin: 1rem;
+  }
+  
+  .size-medium-group {
+    margin-top: 2rem;
+    border-top: 1px solid nb-theme(separator);
+  }
+}

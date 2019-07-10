@@ -1,0 +1,1 @@
+:host{text-transform:uppercase;letter-spacing:0.4px;border:2px solid transparent;transition:none;cursor:pointer;-webkit-appearance:none;-moz-appearance:none;text-align:center;text-decoration:none;display:inline-block;white-space:nowrap;vertical-align:middle;user-select:none}:host:hover,:host:focus{text-decoration:none}:host.btn-full-width{width:100%}

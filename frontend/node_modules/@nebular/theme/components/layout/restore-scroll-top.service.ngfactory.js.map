@@ -1,0 +1,1 @@
+{"version":3,"file":"restore-scroll-top.service.ngfactory.js","sourceRoot":"","sources":["../../../../../.ng_build/theme/components/layout/restore-scroll-top.service.ngfactory.ts"],"names":[],"mappings":"","sourcesContent":["import * as i0 from '@angular/core';\ni0.ComponentFactory;\n"]}
